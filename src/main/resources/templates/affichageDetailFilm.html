@@ -1,0 +1,74 @@
+<html>
+<!-- je vais remplacer le contenu de ma balise avec celui de la balise head de mon template : fragments/template.html -->
+
+<head th:replace="fragments/template :: head('Affichage détail film')"></head>
+
+<body>
+	<!-- je vais remplacer le contenu de ma balise avec celui de la balise head de mon template : fragments/template.html -->
+	<nav th:replace="fragments/template :: nav"></nav>
+
+	<!-- section pour afficher les messages de succès ou d'erreur -->
+	<section th:replace="fragments/template :: messages"></section>
+
+
+	<!-- page qui ajoute un avis pour un film donné -->
+ 	<a th:href="|/prive/avis?filmId=${film.id}|">Ajouter un avis à ce film</a>
+
+	<h1 th:text="${film.titre}"></h1>
+
+	<h2>Durée</h2>
+	<span th:text="${film.duree}"></span>
+
+	<h2>Genre</h2>
+	<span th:text="${film.genre.libelle}"></span>
+
+	<h2>Synopsis</h2>
+	<span th:text="${film.synopsis}"></span>
+
+	<h2>Realisateur</h2>
+	<span th:text="|${film.realisateur.prenom} ${film.realisateur.nom}|"></span>
+
+	<h2>Liste des acteurs</h2>
+
+	<ul>
+		<li th:each="acteur : ${film.acteurs}">
+			<span th:text="|${acteur.prenom} ${acteur.nom}|"></span>
+		</li>
+	</ul>
+	
+	<h2>Liste des avis</h2>
+<form th:action="@{|/admin/filmDetail/avisDelete?filmId=${film.id}|}" method="post">
+	<ul th:each="chaqueAvis : ${film.avis}">
+		<li th:text="|${chaqueAvis.note}/5 ${chaqueAvis.commentaire}|"></li>
+		<li><span th:text="|écrit par ${chaqueAvis.membre.pseudo}|"></span>
+		<button sec:authorize="hasRole('admin')" name="idAvisDelete" th:value="${chaqueAvis.id}">❌</button>
+		</li>
+	</ul>
+</form>
+	<h2 sec:authorize="isAuthenticated()" >Ajout d'un avis pour <span th:text="${film.titre}"></span></h2>
+	
+	<form sec:authorize="isAuthenticated()" th:action="@{|/prive/filmDetail?filmId=${film.id}|}" method="post" th:object="${avis}">
+	
+	<section class="form-element">
+			<label for="note">Note : </label>
+			<!-- à la place de name j'utilise th:field -->
+			<input id="note" type="number" th:field="*{note}" />
+			<span class="error" th:errors="*{note}"></span>
+		</section>
+		
+		<section class="form-element">
+			<label for="commentaire">Commentaire : </label>
+			<!-- à la place de name j'utilise th:field -->
+			<textarea id="commentaire" type="text" th:field="*{commentaire}" ></textarea>
+			<span class="error" th:errors="*{commentaire}"></span>
+		</section>
+		
+		<button>Submit</button>
+	</form>	
+
+
+
+
+</body>
+
+</html>

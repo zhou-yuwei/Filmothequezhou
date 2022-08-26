@@ -1,0 +1,53 @@
+nav li{
+	display: inline-block;
+	margin: 20px;
+}
+
+form .form-element{
+	margin-bottom: 10px;
+}
+
+form .form-element label {
+	display : inline-block;
+	width : 100px;
+	text-align: right;
+}
+
+form  button{
+	border : none;
+	padding : 7px;
+	font-size : 16px;
+	background-color: #16a085;
+	color: white;
+	margin-left: 100px;
+} 
+
+.confirmation{
+	color : green;
+}
+
+.checkbox{
+	color : green;
+	text-align: center;
+	font-weight: 800;
+}
+
+.error{
+	color : red;
+}
+
+.table{
+	border-collapse: collapse;
+	border: 1px solid black;
+}
+
+.table thead tr{
+	background-color: #16a085;
+	color: white;
+}
+
+.table td, .table th{
+	border: 1px solid black;
+	padding: 5px;
+}
+	

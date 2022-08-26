@@ -1,0 +1,37 @@
+<html>
+<!-- je vais remplacer le contenu de ma balise avec celui de la balise head de mon template : fragments/template.html -->
+
+<head th:replace="fragments/template :: head('Affichage détail film')"></head>
+
+<body>
+	<!-- je vais remplacer le contenu de ma balise avec celui de la balise head de mon template : fragments/template.html -->
+	<nav th:replace="fragments/template :: nav"></nav>
+
+	<!-- section pour afficher les messages de succès ou d'erreur -->
+	<section th:replace="fragments/template :: messages"></section>
+
+	<h2>Ajout d'un avis pour <span th:text="${film.titre}"></span></h2>
+	
+	<form th:action="@{|/prive/avis?filmId=${film.id}}" method="post" th:object="${avis}">
+	
+	<section class="form-element">
+			<label for="note">Note : </label>
+			<!-- à la place de name j'utilise th:field -->
+			<input id="note" type="number" th:field="*{note}" />
+			<span class="error" th:errors="*{note}"></span>
+		</section>
+		
+		<section class="form-element">
+			<label for="commentaire">Commentaire : </label>
+			<!-- à la place de name j'utilise th:field -->
+			<textarea id="commentaire" type="text" th:field="*{commentaire}" ></textarea>
+			<span class="error" th:errors="*{commentaire}"></span>
+		</section>
+		
+		<button>Submit</button>
+	</form>	
+
+
+
+</body>
+</html>
